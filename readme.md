@@ -13,7 +13,7 @@ Kafka 9.0.1 image.
 
 	- BROKER_ID: kafka node number in the kafka cluster, default: 1
 	- ZOOKEEPER_CONNECT: Zookeeper nodes connection string, default localhost:2181
-	- KAFKA_IP: th epublish kafka node ip, default: localhost
+	- KAFKA_IP: the public kafka node ip, default: localhost
 
 ### sample with 3 Kafka nodes kid1, kid2, kid3, and 2 zookeeper nodes: zip1, zip2
 
