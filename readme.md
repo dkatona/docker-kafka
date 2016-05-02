@@ -31,15 +31,16 @@ Finally, verify that the image was built successfully on the [Build Details page
 * 3 zookeeper nodes: `zip1`, `zip2`, `zip3`
 * consul ip:cip
 
-  docker run -d --name=kafka1 \
-      -p 9092:9092 \
-      -e "BROKER_ID=1 \
-      -e "ZOOKEEPER_CONNECT=zip1:2181,zip2:2181,zip3:2181" \
-      -e "KAFKA_IP=kip1" \
-      -e "CONSUL=cip:8500" \
-      appcelerator/kafka:latest
+```
+docker run -d --name=kafka1 \
+    -p 9092:9092 \
+    -e "BROKER_ID=1 \
+    -e "ZOOKEEPER_CONNECT=zip1:2181,zip2:2181,zip3:2181" \
+    -e "KAFKA_IP=kip1" \
+    -e "CONSUL=cip:8500" \
+    appcelerator/kafka:latest
 
-  docker run -d --name=kafka2 \
+docker run -d --name=kafka2 \
     -p 9092:9092 \
     -e "BROKER_ID=2 \
     -e "ZOOKEEPER_CONNECT=zip1:2181,zip2:2181,zip3:2181" \
@@ -47,10 +48,11 @@ Finally, verify that the image was built successfully on the [Build Details page
     -e "CONSUL=cip:8500" \
     appcelerator/kafka:latest
 
-  docker run -d --name=kafka3 \
+docker run -d --name=kafka3 \
     -p 9092:9092 \
     -e "BROKER_ID=3 \
     -e "ZOOKEEPER_CONNECT=zip1:2181,zip2:2181,zip3:2181" \
     -e "KAFKA_IP=kip3" \
     -e "CONSUL=cip:8500" \
     appcelerator/kafka:latest
+```
