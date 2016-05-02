@@ -1,0 +1,12 @@
+{
+  "consul": "[consul]",
+  "services": [
+    {
+      "name": "kafka",
+      "port": 9092,
+      "health": "pidof java",
+      "poll": 10,
+      "ttl": 30
+    }
+  ]
+}

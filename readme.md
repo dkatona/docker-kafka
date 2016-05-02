@@ -11,34 +11,34 @@ Kafka 9.0.1 image.
 
 ### Env. variables
 
-	- BROKER_ID: kafka node number in the kafka cluster, default: 1
-	- ZOOKEEPER_CONNECT: Zookeeper nodes connection string, default localhost:2181
-	- KAFKA_IP: the public kafka node ip, default: localhost
+  - BROKER_ID: kafka node number in the kafka cluster, default: 1
+  - ZOOKEEPER_CONNECT: Zookeeper nodes connection string, default localhost:2181
+  - KAFKA_IP: the public kafka node ip, default: localhost
+  - CONSUL: for containerPilot, format ConsulIp:consulPort, if not exist then containerPolot if not used
 
-### sample with 3 Kafka nodes kid1, kid2, kid3, and 2 zookeeper nodes: zip1, zip2
+### sample with 3 Kafka nodes kid1, kid2, kid3, and 2 zookeeper nodes: zip1, zip2 adn consul ip:cip
 
 
-	docker run -d --name=kafka1 \
-	    -p 9092:9092 \
-	    -e "BROKER_ID=1 \
-	    -e "ZOOKEEPER_CONNECT=zip1:2181,zip2:2181" \
-	    -e "KAFKA_IP=kip1" \
-	    --net="host" \
-	    appcelerator/kafka:latest
+  docker run -d --name=kafka1 \
+      -p 9092:9092 \
+      -e "BROKER_ID=1 \
+      -e "ZOOKEEPER_CONNECT=zip1:2181,zip2:2181" \
+      -e "KAFKA_IP=kip1" \
+      -e "CONSUL=cip:8500" \
+      appcelerator/kafka:latest
 
-	docker run -d --name=kafka2 \
-		-p 9092:9092 \
-		-e "BROKER_ID=2 \
-		-e "ZOOKEEPER_CONNECT=zip1:2181,zip2:2181" \
-		-e "KAFKA_IP=kip2" \
-		--net="host" \
-		appcelerator/kafka:latest
+  docker run -d --name=kafka2 \
+    -p 9092:9092 \
+    -e "BROKER_ID=2 \
+    -e "ZOOKEEPER_CONNECT=zip1:2181,zip2:2181" \
+    -e "KAFKA_IP=kip2" \
+    -e "CONSUL=cip:8500" \
+    appcelerator/kafka:latest
 
-	docker run -d --name=kafka3 \
-		-p 9092:9092 \
-		-e "BROKER_ID=3 \
-		-e "ZOOKEEPER_CONNECT=zip1:2181,zip2:2181" \
-		-e "KAFKA_IP=kip3" \
-		--net="host" \
-		appcelerator/kafka:latest
-  
+  docker run -d --name=kafka3 \
+    -p 9092:9092 \
+    -e "BROKER_ID=3 \
+    -e "ZOOKEEPER_CONNECT=zip1:2181,zip2:2181" \
+    -e "KAFKA_IP=kip3" \
+    -e "CONSUL=cip:8500" \
+    appcelerator/kafka:latest
