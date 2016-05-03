@@ -27,6 +27,7 @@ Finally, verify that the image was built successfully on the [Build Details page
 
     Consul UI available at:   http://localhost:8500/ui
     Kafka UI available at:    http://localhost
+    Using this docker-compose file, it's possible to scale kafka, just verify in Consul that zookeper is ready before scaling Kafka.
 
 
 
