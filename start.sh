@@ -22,7 +22,7 @@ if [ -z "$BROKER_ID" ]; then
   curl -X PUT --max-time 10 --data $BID http://$CONSUL/v1/kv/kafkaId
 fi
 if [ -z "$BROKER_ID" ]; then
-  export BROKER_ID=1
+  export BROKER_ID=990
 fi
 echo "BROKER_ID: "$BROKER_ID
 KAFKA_IP=$(ip route get 8.8.8.8 | awk '{print $NF; exit}')
