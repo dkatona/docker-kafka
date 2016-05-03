@@ -40,7 +40,7 @@ Finally, verify that the image was built successfully on the [Build Details page
          - "8600:53/udp"
         command: "-server -bootstrap -ui-dir /ui"
       zookeeper:
-        image: microservice/microservice-zookeeper:1.0.0
+        image: appcelerator/zookeeper:latest
         ports:
          - "2181:2181"
          - "2888:2888"
@@ -48,7 +48,7 @@ Finally, verify that the image was built successfully on the [Build Details page
         environment:
          - CONSUL=consul:8500
       kafka:
-        image: microservice/microservice-kafka:1.0.0
+        image: appcelerator/kafka:latest
         ports:
          - "9092:9092"
         environment:
