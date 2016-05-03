@@ -25,8 +25,8 @@ Finally, verify that the image was built successfully on the [Build Details page
 
 ### sample with Docker compose: consul, zookeeper, kafka
 
-Consul UI available at:   http://localhost:8500/ui
-Kafka UI available at:    http://localhost
+    Consul UI available at:   http://localhost:8500/ui
+    Kafka UI available at:    http://localhost
 
 
 
