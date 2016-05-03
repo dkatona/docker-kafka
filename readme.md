@@ -10,7 +10,7 @@ Finally, verify that the image was built successfully on the [Build Details page
 
 ### Tags
 
-- `9.0.1`, `latest`
+- `0.9`, `0.9.0`, `0.9.0.1`, `latest`
 
 ### Exposed ports
 
