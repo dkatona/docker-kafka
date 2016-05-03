@@ -1,4 +1,4 @@
-Kafka 9.0.1 image.
+Kafka image.
 
 ### Maintainers
 
