@@ -25,6 +25,8 @@ Finally, verify that the image was built successfully on the [Build Details page
 
 ### sample with Docker compose, 3 zookeeper nodes: zookeeper1, zookeeper2 and consul
 
+With docker-compose Kafka needs Consul to store the current broker_id an dbe able to scale. The last used kafka broker_id is store in kv/kafkaId
+
 
     $ZOOKZEEPER_CONNECT="zookeper1:2181,zookeeper2:2181,zookeeper3:2181"
     $CONSUL=consul:8500
