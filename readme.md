@@ -40,20 +40,24 @@ Finally, verify that the image was built successfully on the [Build Details page
          - "8600:53/udp"
         command: "-server -bootstrap -ui-dir /ui"
       zookeeper:
-        image: appcelerator/zookeeper:latest
+        image: microservice/microservice-zookeeper:1.0.0
         ports:
          - "2181:2181"
          - "2888:2888"
          - "3888:3888"
         environment:
          - CONSUL=consul:8500
+        depends_on:
+         - consul
       kafka:
-        image: appcelerator/kafka:latest
+        image: microservice/microservice-kafka:1.0.0
         ports:
-         - "9092:9092"
+         - "9092"
         environment:
          - ZOOKEEPER_CONNECT=zookeeper:2181
          - CONSUL=consul:8500
+        depends_on:
+         - zookeeper
       kafka-manager:
         image: sheepkiller/kafka-manager
         ports:
@@ -61,6 +65,8 @@ Finally, verify that the image was built successfully on the [Build Details page
         environment:
          - ZK_HOSTS=zookeeper:2181
          - CONSUL=consul:8500
+        depends_on:
+         - zookeeper
 
 
 ### sample with 3 Kafka nodes and 3 zookeeper nodes: zookeeper1, zookeeper2, zookeeper3, without containerPilot
