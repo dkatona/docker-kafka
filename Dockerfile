@@ -1,13 +1,13 @@
 FROM anapsix/alpine-java:8
 MAINTAINER Francois Reignat <freignat@axway.com>
 
-ENV KAFKA_VERSION=2.11-0.9.0.1
+ENV KAFKA_VERSION=0.9.0.1
 
 RUN apk update && apk add sed bash curl \
-&& wget "http://mirror.cc.columbia.edu/pub/software/apache/kafka/0.9.0.1/kafka_$KAFKA_VERSION.tgz" -O /tmp/kafka.tgz \
+&& wget "http://mirror.cc.columbia.edu/pub/software/apache/kafka/$KAFKA_VERSION/kafka_2.11-$KAFKA_VERSION.tgz" -O /tmp/kafka.tgz \
 && mkdir -p /opt \
 && tar -xvzf /tmp/kafka.tgz -C /opt \
-&& mv /opt/kafka_$KAFKA_VERSION /opt/kafka \
+&& mv /opt/kafka_2.11-$KAFKA_VERSION /opt/kafka \
 && echo "delete.topic.enable = true" >> /opt/kafka/config/server.properties
 
 WORKDIR /opt/kafka

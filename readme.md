@@ -2,8 +2,6 @@ Kafka 9.0.1 image.
 
 ### Maintainers
 
-Don't forget to verify `KAFKA_VERSION` in the `Dockerfile`. Then ensure the build settings are correct on [Docker Hub](https://hub.docker.com/r/appcelerator/kafka/~/settings/automated-builds/).
-
 To trigger a build, run:
 
     curl -X POST https://registry.hub.docker.com/u/appcelerator/kafka/trigger/cc9bca73-f7b3-48db-9c2d-754bf430201b/
