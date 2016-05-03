@@ -14,7 +14,6 @@ WORKDIR /opt/kafka
 
 COPY ./start.sh ./start.sh
 
-ENV BROKER_ID 1
 ENV ZOOKEEPER_CONNECT localhost:2181
 ENV KAFKA_IP=localhost
 

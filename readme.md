@@ -18,41 +18,52 @@ Finally, verify that the image was built successfully on the [Build Details page
 
 - `9092`
 
-### Environment variables
 
-  - BROKER_ID: kafka node number in the kafka cluster, default: 1
+### Env. variables
+
   - ZOOKEEPER_CONNECT: Zookeeper nodes connection string, default localhost:2181
-  - KAFKA_IP: the public kafka node ip, default: localhost
+  - BROKER_IP: if not defined (in docker-compose for instance), use CONSUL to get the right id in Consul kv.
   - CONSUL: for containerPilot, format ConsulIp:consulPort, if not exist then containerPolot if not used
 
-### Example cluster
+### sample with Docker compose, 3 zookeeper nodes: zookeeper1, zookeeper2 and consul
 
-* 3 Kafka nodes `kid1`, `kid2`, `kid3`
-* 3 zookeeper nodes: `zip1`, `zip2`, `zip3`
-* consul ip:cip
 
-```
-docker run -d --name=kafka1 \
-    -p 9092:9092 \
-    -e "BROKER_ID=1 \
-    -e "ZOOKEEPER_CONNECT=zip1:2181,zip2:2181,zip3:2181" \
-    -e "KAFKA_IP=kip1" \
-    -e "CONSUL=cip:8500" \
-    appcelerator/kafka:latest
+    $ZOOKZEEPER_CONNECT="zookeper1:2181,zookeeper2:2181,zookeeper3:2181"
+    $CONSUL=consul:8500
 
-docker run -d --name=kafka2 \
-    -p 9092:9092 \
-    -e "BROKER_ID=2 \
-    -e "ZOOKEEPER_CONNECT=zip1:2181,zip2:2181,zip3:2181" \
-    -e "KAFKA_IP=kip2" \
-    -e "CONSUL=cip:8500" \
-    appcelerator/kafka:latest
 
-docker run -d --name=kafka3 \
-    -p 9092:9092 \
-    -e "BROKER_ID=3 \
-    -e "ZOOKEEPER_CONNECT=zip1:2181,zip2:2181,zip3:2181" \
-    -e "KAFKA_IP=kip3" \
-    -e "CONSUL=cip:8500" \
-    appcelerator/kafka:latest
-```
+    services:
+      kakfa:
+        image: appcelerator/kafka:latest
+        ports:
+         - "9092:9092"
+        environment:
+         - ZOOKEEPER_CONNECT=$ZOOKEEPER_CONNECT
+         - CONSUL=$CONSUL
+
+
+### sample with 3 Kafka nodes and 3 zookeeper nodes: zookeeper1, zookeeper2, zookeeper3, without containerPilot
+
+
+    $ZOOKZEEPER_CONNECT="zookeper1:2181,zookeeper2:2181,zookeeper3:2181"
+
+
+    docker run -d --name=kafka1 \
+      -p 9092:9092 \
+      -e "ZOOKEEPER_CONNECT=$ZOOKEEPER_CONNECT" \
+      -e "BROKER_ID=1" \
+      appcelerator/kafka:latest
+
+
+    docker run -d --name=kafka2 \
+      -p 9092:9092 \
+      -e "ZOOKEEPER_CONNECT=$ZOOKEEPER_CONNECT" \
+      -e "BROKER_ID=2" \
+      appcelerator/kafka:latest
+
+
+    docker run -d --name=kafka3 \
+      -p 9092:9092 \
+      -e "ZOOKEEPER_CONNECT=$ZOOKEEPER_CONNECT" \
+      -e "BROKER_ID=3" \
+      appcelerator/kafka:latest
