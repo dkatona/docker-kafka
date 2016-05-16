@@ -4,7 +4,7 @@
     {
       "name": "kafka",
       "port": 9092,
-      "health": "pidof java",
+      "health": "bin/kafka-topics.sh --zookeeper zookeeper:2181 --list",
       "poll": 10,
       "ttl": 30
     }
