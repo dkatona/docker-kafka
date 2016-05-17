@@ -36,7 +36,7 @@ sed -i "s/zookeeper.connect=localhost:2181/zookeeper.connect=$ZOOKEEPER_CONNECT/
 sed -i "s/#advertised.host.name=<hostname routable by clients>/advertised.host.name=$KAFKA_IP/g" /opt/kafka/config/server.properties
 #lauch kafka
 if [ -z "$CONSUL" ]; then
-  /opt/kafka/bin/kafka-server-start.sh /opt/kafka/config/server.properties
+  exec /opt/kafka/bin/kafka-server-start.sh /opt/kafka/config/server.properties
 else
   #update containerpilot conffile
   sed -i "s/\[consul\]/$CONSUL/g" /etc/containerpilot.json
@@ -52,7 +52,7 @@ else
       ready=1
       for service in $DEPENDENCIES
       do
-        status=$(curl --max-time 3 -s http://consul:8500/v1/health/checks/$service)
+        status=$(curl --max-time 3 -s http://$CONSUL/v1/health/checks/$service)
         if [[ $status =~ ^.*\"Status\":\"passing\" ]]; then
           echo $service" is ready"
         else
