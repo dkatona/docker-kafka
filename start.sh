@@ -36,7 +36,7 @@ sed -i "s/zookeeper.connect=localhost:2181/zookeeper.connect=$ZOOKEEPER_CONNECT/
 sed -i "s/#advertised.host.name=<hostname routable by clients>/advertised.host.name=$KAFKA_IP/g" /opt/kafka/config/server.properties
 #lauch kafka
 if [ -z "$CONSUL" ]; then
-  /opt/kafka/bin/kafka-server-start.sh /opt/kafka/config/server.properties
+  exec /opt/kafka/bin/kafka-server-start.sh /opt/kafka/config/server.properties
 else
   echo ---------------------------------------------------------------------------
   echo containerPilot conffile
@@ -65,6 +65,7 @@ else
         sleep 10
       fi
     done
+    sleep 3
     echo "All dependencies are ready"
     /bin/containerpilot /opt/kafka/bin/kafka-server-start.sh /opt/kafka/config/server.properties
   done

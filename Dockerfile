@@ -18,14 +18,16 @@ ENV ZOOKEEPER_CONNECT localhost:2181
 ENV KAFKA_IP=localhost
 
 # Add ContainerPilot
-RUN curl -Lo /tmp/cb.tar.gz https://github.com/joyent/containerpilot/releases/download/2.1.0/containerpilot-2.1.0.tar.gz \
+ENV CONTAINERPILOT=2.1.0
+RUN curl -Lo /tmp/cb.tar.gz https://github.com/joyent/containerpilot/releases/download/$CONTAINERPILOT/containerpilot-$CONTAINERPILOT.tar.gz \
 && tar -xz -f /tmp/cb.tar.gz \
 && mv ./containerpilot /bin/
 COPY containerpilot.json /etc/containerpilot.json
 
+#ENV CONSUL=consul:8500
 ENV CONTAINERPILOT=file:///etc/containerpilot.json
 ENV DEPENDENCIES="zookeeper"
 
 EXPOSE 9092
 
-CMD ["sh", "-c", "./start.sh"]
+CMD ["./start.sh"]
