@@ -1,10 +1,10 @@
 {
-  "consul": "[consul]",
+  "consul": "{{.CONSUL}}",
   "services": [
     {
       "name": "kafka",
       "port": 9092,
-      "health": "bin/kafka-topics.sh --zookeeper zookeeper:2181 --list",
+      "health": "bin/kafka-topics.sh --zookeeper {{.ZOOKEEPER_CONNECT}} --list",
       "poll": 10,
       "ttl": 30
     }
