@@ -65,6 +65,7 @@ else
         sleep 10
       fi
     done
+    sleep 3
     echo "All dependencies are ready"
     /bin/containerpilot /opt/kafka/bin/kafka-server-start.sh /opt/kafka/config/server.properties
   done
