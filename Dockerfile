@@ -25,6 +25,7 @@ RUN curl -Lo /tmp/cb.tar.gz https://github.com/joyent/containerpilot/releases/do
 COPY containerpilot.json /etc/containerpilot.json
 
 #ENV CONSUL=consul:8500
+ENV CP_LOG_LEVEL=ERROR
 ENV CONTAINERPILOT=file:///etc/containerpilot.json
 ENV DEPENDENCIES="zookeeper"
 
