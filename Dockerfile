@@ -13,7 +13,7 @@ RUN apk update && apk add sed bash curl \
 WORKDIR /opt/kafka
 
 COPY ./start.sh ./start.sh
-COPY ./server.properties /opt/kafka/config/server.properties
+#COPY ./server.properties /opt/kafka/config/server.properties
 
 ENV ZOOKEEPER_CONNECT localhost:2181
 ENV KAFKA_IP=localhost
