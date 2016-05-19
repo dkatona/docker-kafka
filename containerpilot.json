@@ -10,8 +10,8 @@
       "name": "kafka",
       "port": 9092,
       "health": "/opt/kafka/bin/check.sh",
-      "poll": 10,
-      "ttl": 30
+      "poll": [poll],
+      "ttl": [ttl]
     }
   ],
   "backends": [
