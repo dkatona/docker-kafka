@@ -38,14 +38,11 @@ sed -i "s/#advertised.host.name=<hostname routable by clients>/advertised.host.n
 if [ -z "$CONSUL" ]; then
   exec /opt/kafka/bin/kafka-server-start.sh /opt/kafka/config/server.properties
 else
-<<<<<<< HEAD
-=======
   #update containerpilot conffile
   sed -i "s/\[consul\]/$CONSUL/g" /etc/containerpilot.json
   sed -i "s/\[loglevel\]/$CP_LOG_LEVEL/g" /etc/containerpilot.json
   sed -i "s/\[ttl\]/$CP_TTL/g" /etc/containerpilot.json
   sed -i "s/\[poll\]/$CP_POLL/g" /etc/containerpilot.json
->>>>>>> 485eececa4cf967256acb62bafac67bb45efbbab
   echo ---------------------------------------------------------------------------
   echo containerPilot conffile
   cat /etc/containerpilot.json
