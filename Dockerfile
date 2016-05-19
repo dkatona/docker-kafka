@@ -12,7 +12,9 @@ RUN apk update && apk add sed bash curl \
 
 WORKDIR /opt/kafka
 
-COPY ./start.sh ./start.sh
+COPY ./start.sh /opt/kafka/bin/start.sh
+COPY ./start.sh /opt/kafka/bin/stop.sh
+COPY ./check.sh /opt/kafka/bin/check.sh
 #COPY ./server.properties /opt/kafka/config/server.properties
 
 ENV ZOOKEEPER_CONNECT localhost:2181
@@ -26,10 +28,12 @@ RUN curl -Lo /tmp/cb.tar.gz https://github.com/joyent/containerpilot/releases/do
 COPY containerpilot.json /etc/containerpilot.json
 
 #ENV CONSUL=consul:8500
-ENV CP_LOG_LEVEL=ERROR
+#ENV ZOOKEEPER_CONNECT=zookeeper:2181
+ENV TOPICS_CREATED=0
+ENV CP_LOG_LEVEL=INFO
 ENV CONTAINERPILOT=file:///etc/containerpilot.json
-ENV DEPENDENCIES="zookeeper"
+ENV DEPENDENCIES="zookeeper amp-log-agent"
 
 EXPOSE 9092
 
-CMD ["./start.sh"]
+CMD ["/opt/kafka/bin/start.sh"]

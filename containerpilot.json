@@ -9,9 +9,16 @@
     {
       "name": "kafka",
       "port": 9092,
-      "health": "bin/kafka-topics.sh --zookeeper zookeeper:2181 --list",
+      "health": "/opt/kafka/bin/check.sh",
       "poll": 10,
       "ttl": 30
+    }
+  ],
+  "backends": [
+    {
+      "name": "zookeeper",
+      "poll": 10,
+      "onChange": "/opt/kafka/bin/stop.sh"
     }
   ]
 }
