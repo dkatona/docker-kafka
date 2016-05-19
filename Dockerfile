@@ -30,7 +30,7 @@ COPY containerpilot.json /etc/containerpilot.json
 #ENV CONSUL=consul:8500
 #ENV ZOOKEEPER_CONNECT=zookeeper:2181
 ENV TOPICS_CREATED=0
-ENV CP_LOG_LEVEL=INFO
+ENV CP_LOG_LEVEL=ERROR
 ENV CONTAINERPILOT=file:///etc/containerpilot.json
 ENV DEPENDENCIES="zookeeper amp-log-agent"
 
