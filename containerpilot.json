@@ -1,12 +1,24 @@
 {
-  "consul": "{{.CONSUL}}",
+  "consul": "[consul]",
+  "logging": {
+    "level": "[loglevel]",
+    "format": "text",
+    "output": "stdout"
+  },
   "services": [
     {
       "name": "kafka",
       "port": 9092,
-      "health": "bin/kafka-topics.sh --zookeeper {{.ZOOKEEPER_CONNECT}} --list",
+      "health": "/opt/kafka/bin/check.sh",
+      "poll": [poll],
+      "ttl": [ttl]
+    }
+  ],
+  "backends": [
+    {
+      "name": "zookeeper",
       "poll": 10,
-      "ttl": 30
+      "onChange": "/opt/kafka/bin/stop.sh"
     }
   ]
 }
