@@ -26,7 +26,7 @@ if [ -z "$BROKER_ID" ]; then
   export BROKER_ID=990
 fi
 echo "BROKER_ID: "$BROKER_ID
-KAFKA_IP=$(ip route get 8.8.8.8 | awk '{print $NF; exit}')
+KAFKA_IP=$(hostname -i | awk '{print $1}')
 echo "KAFKA_IP: "$KAFKA_IP
 
 #update config regarding env. variables
