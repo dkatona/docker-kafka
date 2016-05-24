@@ -26,14 +26,14 @@ if [ -z "$BROKER_ID" ]; then
   export BROKER_ID=990
 fi
 echo "BROKER_ID: "$BROKER_ID
-KAFKA_IP=$(hostname -i | awk '{print $1}')
-echo "KAFKA_IP: "$KAFKA_IP
+KAFKA_HOSTNAME=kafka.service.dc1.consul
+echo "KAFKA_HOSTNAME: "$KAFKA_HOSTNAME
 
 #update config regarding env. variables
 sed -i "s/reserved.broker.max.id = 1000/reserved.broker.max.id = 100000/g" /opt/kafka/config/server.properties
 sed -i "s/broker.id=0/broker.id=$BROKER_ID/g" /opt/kafka/config/server.properties
 sed -i "s/zookeeper.connect=localhost:2181/zookeeper.connect=$ZOOKEEPER_CONNECT/g" /opt/kafka/config/server.properties
-sed -i "s/#advertised.host.name=<hostname routable by clients>/advertised.host.name=$KAFKA_IP/g" /opt/kafka/config/server.properties
+sed -i "s/#advertised.host.name=<hostname routable by clients>/advertised.host.name=$KAFKA_HOSTNAME/g" /opt/kafka/config/server.properties
 #lauch kafka
 if [ -z "$CONSUL" ]; then
   exec /opt/kafka/bin/kafka-server-start.sh /opt/kafka/config/server.properties
