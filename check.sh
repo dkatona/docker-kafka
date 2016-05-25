@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-fullList="amp-logs amp-service-start amp-service-stop amp-service-terminate amp-docker-events"
+fullList="amp-logs amp-service-start amp-service-stop amp-service-terminate amp-docker-events amp-service-events"
 
 list=$(bin/kafka-topics.sh --zookeeper $ZOOKEEPER_CONNECT --list)
 for topic in $fullList
