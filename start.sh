@@ -11,10 +11,11 @@ echo "TOPIC_LIST: "$TOPIC_LIST
 if [ -z "$BROKER_ID" ]; then
   #Get Kafka BrokerId from Consul
   export BID=$(curl -s --max-time 10 http://$CONSUL/v1/kv/kafkaId?raw)
-  echo "Current Kafka broker id in Consul: "$BID
   if [ -z "$BID" ]; then
+    echo "No current Kafka broker id in Consul, set to 1"
     BID=1
   else
+    echo "Current Kafka broker id in Consul: "$BID
     BID=$(($BID+1))
     if [[ "$BID" = "1000" ]]; then
       BID=1
