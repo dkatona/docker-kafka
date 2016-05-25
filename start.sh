@@ -7,6 +7,7 @@ echo ---------------------------------------------------------------------------
 echo "ZOOKEEPER_CONNECT: "$ZOOKEEPER_CONNECT
 echo "CONSUL: "$CONSUL
 echo "DEPENDENCIES: "$DEPENDENCIES
+echo "TOPIC_LIST: "$TOPIC_LIST
 if [ -z "$BROKER_ID" ]; then
   #Get Kafka BrokerId from Consul
   export BID=$(curl -s --max-time 10 http://$CONSUL/v1/kv/kafkaId?raw)
