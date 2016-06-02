@@ -22,6 +22,7 @@ Finally, verify that the image was built successfully on the [Build Details page
   - ZOOKEEPER_CONNECT: Zookeeper nodes connection string, default localhost:2181
   - BROKER_IP: if not defined (in docker-compose for instance), use CONSUL to get the right id in Consul kv.
   - CONSUL: for containerPilot, format ConsulIp:consulPort, if not exist then containerPolot if not used
+  - TOPIC_LIST: list of the topics needed to be created at Kafka statup format: "name1 name2 name3 ..."
 
 ### sample with Docker compose: consul, zookeeper, kafka
 
