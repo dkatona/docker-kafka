@@ -1,21 +1,21 @@
 FROM anapsix/alpine-java:8
 MAINTAINER Francois Reignat <freignat@axway.com>
 
-ENV KAFKA_VERSION=0.9.0.1
+ENV KAFKA_VERSION=0.10.0.0
 
 RUN apk update && apk add sed bash curl \
 && wget "http://mirror.cc.columbia.edu/pub/software/apache/kafka/$KAFKA_VERSION/kafka_2.11-$KAFKA_VERSION.tgz" -O /tmp/kafka.tgz \
 && mkdir -p /opt \
 && tar -xvzf /tmp/kafka.tgz -C /opt \
-&& mv /opt/kafka_2.11-$KAFKA_VERSION /opt/kafka \
-&& echo "delete.topic.enable = true" >> /opt/kafka/config/server.properties
+&& mv /opt/kafka_2.11-$KAFKA_VERSION /opt/kafka
 
 WORKDIR /opt/kafka
 
 COPY ./start.sh /opt/kafka/bin/start.sh
 COPY ./start.sh /opt/kafka/bin/stop.sh
 COPY ./check.sh /opt/kafka/bin/check.sh
-#COPY ./server.properties /opt/kafka/config/server.properties
+COPY ./server.properties /opt/kafka/config/server.properties
+COPY ./log4j.properties /opt/kafka/config/log4j.properties
 
 ENV ZOOKEEPER_CONNECT localhost:2181
 ENV KAFKA_IP=localhost
