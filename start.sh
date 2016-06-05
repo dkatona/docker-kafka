@@ -28,7 +28,7 @@ if [ -z "$BROKER_ID" ]; then
   export BROKER_ID=990
 fi
 echo "BROKER_ID: "$BROKER_ID
-KAFKA_HOSTNAME=kafka.service.dc1.consul
+KAFKA_HOSTNAME=kafka
 echo "KAFKA_HOSTNAME: "$KAFKA_HOSTNAME
 
 #update config regarding env. variables
