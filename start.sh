@@ -30,15 +30,12 @@ fi
 echo "BROKER_ID: "$BROKER_ID
 KAFKA_IP=$(ip route get 8.8.8.8 | awk '{print $NF; exit}')
 echo "KAFKA_IP: "$KAFKA_IP
+CMD="/opt/kafka/bin/kafka-server-start.sh /opt/kafka/config/server.properties"
 
-#update config regarding env. variables
-sed -i "s/reserved.broker.max.id = 1000/reserved.broker.max.id = 100000/g" /opt/kafka/config/server.properties
-sed -i "s/broker.id=0/broker.id=$BROKER_ID/g" /opt/kafka/config/server.properties
-sed -i "s/zookeeper.connect=localhost:2181/zookeeper.connect=$ZOOKEEPER_CONNECT/g" /opt/kafka/config/server.properties
-sed -i "s/#advertised.host.name=<hostname routable by clients>/advertised.host.name=$KAFKA_IP/g" /opt/kafka/config/server.properties
-#lauch kafka
+trap "kill -15 -1" EXIT KILL
+
 if [ -z "$CONSUL" ]; then
-  exec /opt/kafka/bin/kafka-server-start.sh /opt/kafka/config/server.properties
+  exec $CMD
 else
   #update containerpilot conffile
   sed -i "s/\[consul\]/$CONSUL/g" /etc/containerpilot.json
@@ -72,6 +69,6 @@ else
     done
     sleep $CP_RESTART_DELAY
     echo "All dependencies are ready"
-    /bin/containerpilot /opt/kafka/bin/kafka-server-start.sh /opt/kafka/config/server.properties
+    /bin/containerpilot $CMD
   done
 fi
