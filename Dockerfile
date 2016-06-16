@@ -1,10 +1,25 @@
 FROM anapsix/alpine-java:8
 MAINTAINER Francois Reignat <freignat@axway.com>
+# Add ContainerPilot
+RUN apk update && apk add sed bash curl gpgme
+ENV CONTAINERPILOT=2.1.0
+RUN curl -Lo /tmp/cb.tar.gz https://github.com/joyent/containerpilot/releases/download/$CONTAINERPILOT/containerpilot-$CONTAINERPILOT.tar.gz \
+&& tar -xz -f /tmp/cb.tar.gz \
+&& mv ./containerpilot /bin/
+COPY containerpilot.json /etc/containerpilot.json
+
+ENV CP_LOG_LEVEL=ERROR
+ENV CP_TTL=20
+ENV CP_POLL=5
+ENV CP_POLL_DEP=5
+ENV CP_RESTART_DELAY=10
+ENV CONTAINERPILOT=file:///etc/containerpilot.json
 
 ENV KAFKA_VERSION=0.10.0.0
 
-RUN apk update && apk add sed bash curl \
-&& wget "http://mirror.cc.columbia.edu/pub/software/apache/kafka/$KAFKA_VERSION/kafka_2.11-$KAFKA_VERSION.tgz" -O /tmp/kafka.tgz \
+LABEL name="kafka" version=$KAFKA_VERSION
+
+RUN wget "http://mirror.cc.columbia.edu/pub/software/apache/kafka/$KAFKA_VERSION/kafka_2.11-$KAFKA_VERSION.tgz" -O /tmp/kafka.tgz \
 && mkdir -p /opt \
 && tar -xvzf /tmp/kafka.tgz -C /opt \
 && mv /opt/kafka_2.11-$KAFKA_VERSION /opt/kafka
@@ -20,20 +35,8 @@ COPY ./log4j.properties /opt/kafka/config/log4j.properties
 ENV ZOOKEEPER_CONNECT localhost:2181
 ENV KAFKA_IP=localhost
 
-# Add ContainerPilot
-ENV CONTAINERPILOT=2.1.0
-RUN curl -Lo /tmp/cb.tar.gz https://github.com/joyent/containerpilot/releases/download/$CONTAINERPILOT/containerpilot-$CONTAINERPILOT.tar.gz \
-&& tar -xz -f /tmp/cb.tar.gz \
-&& mv ./containerpilot /bin/
-COPY containerpilot.json /etc/containerpilot.json
 
-#ENV CONSUL=consul:8500
-#ENV ZOOKEEPER_CONNECT=zookeeper:2181
 ENV TOPICS_CREATED=0
-ENV CP_LOG_LEVEL=ERROR
-ENV CP_POLL=5
-ENV CP_TTL=20
-ENV CONTAINERPILOT=file:///etc/containerpilot.json
 ENV DEPENDENCIES="zookeeper amp-log-agent"
 ENV TOPIC_LIST="amp-logs amp-service-start amp-service-stop amp-service-terminate amp-docker-events amp-service-events"
 

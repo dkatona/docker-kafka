@@ -67,10 +67,10 @@ else
       done
       if [ "$ready" == "0" ]; then
         echo "Waiting for dependencies"
-        sleep 10
+        sleep $CP_POLL_DEP
       fi
     done
-    sleep 3
+    sleep $CP_RESTART_DELAY
     echo "All dependencies are ready"
     /bin/containerpilot /opt/kafka/bin/kafka-server-start.sh /opt/kafka/config/server.properties
   done
