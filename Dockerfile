@@ -1,5 +1,6 @@
 FROM anapsix/alpine-java:8
 MAINTAINER Francois Reignat <freignat@axway.com>
+
 # Add ContainerPilot
 RUN apk update && apk add sed bash curl gpgme
 ENV CONTAINERPILOT=2.1.0
@@ -38,7 +39,7 @@ ENV KAFKA_IP=localhost
 
 ENV TOPICS_CREATED=0
 ENV DEPENDENCIES="zookeeper amp-log-agent"
-ENV TOPIC_LIST="amp-logs amp-service-start amp-service-stop amp-service-terminate amp-docker-events amp-service-events"
+ENV TOPIC_LIST
 
 
 EXPOSE 9092
