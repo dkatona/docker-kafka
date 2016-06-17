@@ -27,7 +27,7 @@ RUN wget "http://mirror.cc.columbia.edu/pub/software/apache/kafka/$KAFKA_VERSION
 WORKDIR /opt/kafka
 
 COPY ./start.sh /opt/kafka/bin/start.sh
-COPY ./start.sh /opt/kafka/bin/stop.sh
+COPY ./stop.sh /opt/kafka/bin/stop.sh
 COPY ./check.sh /opt/kafka/bin/check.sh
 COPY ./server.properties /opt/kafka/config/server.properties
 COPY ./log4j.properties /opt/kafka/config/log4j.properties
