@@ -10,7 +10,8 @@ Finally, verify that the image was built successfully on the [Build Details page
 
 ### Tags
 
-- `0.9`, `0.9.0`, `0.9.0.1`, `latest`
+- `0.9`, `0.9.0`, `0.9.0.1`
+- `0.10`, `0.10.0`, `0.10.0.1`, `latest`
 
 ### Exposed ports
 
@@ -20,44 +21,27 @@ Finally, verify that the image was built successfully on the [Build Details page
 ### Env. variables
 
   - ZOOKEEPER_CONNECT: Zookeeper nodes connection string, default localhost:2181
-  - BROKER_IP: if not defined (in docker-compose for instance), use CONSUL to get the right id in Consul kv.
-  - CONSUL: for containerPilot, format ConsulIp:consulPort, if not exist then containerPolot if not used
   - TOPIC_LIST: list of the topics needed to be created at Kafka statup format: "name1 name2 name3 ..."
 
-### sample with Docker compose: consul, zookeeper, kafka
+### sample with Docker compose: zookeeper, kafka
 
-    Consul UI available at:   http://localhost:8500/ui
     Kafka UI available at:    http://localhost
-    Using this docker-compose file, it's possible to scale kafka, just verify in Consul that zookeper is ready before scaling Kafka.
-
 
 
     version: '2'
     services:
-      consul:
-        image: progrium/consul
-        ports:
-         - "8500:8500"
-         - "8400:8400"
-         - "8600:53/udp"
-        command: "-server -bootstrap -ui-dir /ui"
       zookeeper:
         image: appcelerator/zookeeper:latest
         ports:
          - "2181:2181"
          - "2888:2888"
          - "3888:3888"
-        environment:
-         - CONSUL=consul:8500
-        depends_on:
-         - consul
       kafka:
         image: appcelerator/kafka:latest
         ports:
          - "9092"
         environment:
          - ZOOKEEPER_CONNECT=zookeeper:2181
-         - CONSUL=consul:8500
         depends_on:
          - zookeeper
       kafka-manager:
@@ -66,7 +50,6 @@ Finally, verify that the image was built successfully on the [Build Details page
          - "80:9000"
         environment:
          - ZK_HOSTS=zookeeper:2181
-         - CONSUL=consul:8500
         depends_on:
          - zookeeper
 
