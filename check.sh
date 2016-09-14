@@ -10,13 +10,17 @@ else
     echo "Checking topic list..."
     list=$(bin/kafka-topics.sh --zookeeper $ZOOKEEPER_CONNECT --list)
     echo "Checking topic list : $list"
-    for topic in $TOPIC_LIST
+    for topicToCreate in $TOPIC_LIST
     do
+        IFS=':' read -a topicConfig <<< "$topicToCreate"
+        topic=${topicConfig[0]}
+        partitions=${topicConfig[1]:-1}
+        replication_factor=${topicConfig[2]:-1}
         if [[ $list =~ ^.*$topic ]]; then
             echo "$topic exists"
         else
-            echo "Creating topic $topic..."
-            bin/kafka-topics.sh --zookeeper $ZOOKEEPER_CONNECT --create --partitions=1 --replication-factor=1 --topic $topic
+            echo "Creating topic $topic with $partitions partitions and $replication_factor replication factor"
+            bin/kafka-topics.sh --zookeeper $ZOOKEEPER_CONNECT --create --partitions=$partitions --replication-factor=$replication_factor --topic $topic
             echo "Creating topic $topic Done"
         fi
     done
