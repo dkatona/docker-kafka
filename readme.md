@@ -21,7 +21,7 @@ Finally, verify that the image was built successfully on the [Build Details page
 ### Env. variables
 
   - ZOOKEEPER_CONNECT: Zookeeper nodes connection string, default localhost:2181
-  - TOPIC_LIST: list of the topics needed to be created at Kafka statup format: "name1 name2 name3 ..."
+  - TOPIC_LIST: list of the topics needed to be created at Kafka statup format: "name1 name2 name3 ...". Optionally, you can change number of partitions and replication factor (both defaults to 1) with format name:partitions:replication_factor (e.g. name1:24:2)
 
 ### sample with Docker compose: zookeeper, kafka
 
