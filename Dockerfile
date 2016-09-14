@@ -1,4 +1,4 @@
-FROM appcelerator/alpine:20160726
+FROM anapsix/alpine-java:8
 
 MAINTAINER Francois Reignat <freignat@axway.com>
 
